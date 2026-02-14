@@ -14,7 +14,7 @@ This bookmarklet automates the process of collecting profile links from a Quora 
 * Extracts Profiles: Scans the list for unique profile URLs.
 * Export: Displays the results in a clean pop-up window with a "Copy to Clipboard" button for easy use.
 
- <a href="javascript:(function(){s=document.createElement('script');s.src='https://gist.github.com/raw/707529/bookmarklet.js?'+Math.random();document.body.appendChild(s);})();">Drag this to your bookmark bar</a>
+[Test](javascript:(function(){s=document.createElement('script');s.src='https://gist.github.com/raw/707529/bookmarklet.js?'+Math.random();document.body.appendChild(s);})();")
 
 ## Contributors
 
