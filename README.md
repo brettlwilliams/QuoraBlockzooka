@@ -31,9 +31,9 @@ This bookmarklet streamlines the process of blocking a Quora user by automating 
 * Selects Block: Locates the "Block" option within the pop-up menu and clicks it automatically.
 * Confirms Action: Detects the final confirmation prompt and clicks "Block" to finish the process.
 
-  ## Space Report Extract
+## Space Report Extract
 
-  This bookmarklet is a  Profile Scraper for Quora report Spaces. It automates the extraction of profile links from Space feeds or member pages. When activated, it:
+This bookmarklet is a  Profile Scraper for Quora report Spaces. It automates the extraction of profile links from Space feeds or member pages. When activated, it:
 
 * Subdomain Check: Ensures it's running on a Quora Space (subdomain) to prevent errors.
 * Customizable Depth: Provides a pop-up menu where you can choose the number of "scrolls" (up to 50) to determine how deep the scraper should go.
