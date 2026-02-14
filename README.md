@@ -26,7 +26,7 @@ This bookmarklet automates the collection of profile links from Quora Contributo
 * **Export:** Displays links in a pop-up overlay with a "Copy to Clipboard" button.
 
 ### Block
-This bookmarklet streamlinesblocking a Quora user by automating the multiple clicks usually required. When activated on a user's profile, it:
+This bookmarklet streamlines blocking a Quora user by automating the multiple clicks usually required. When activated on a user's profile, it:
 * **Opens the Menu:** Instantly finds and clicks the "More" (three dots) overflow menu.
 * **Selects Block:** Locates the "Block" option within the pop-up menu and clicks it.
 * **Confirms Action:** Detects the final confirmation prompt and clicks "Block" to finish the process.
