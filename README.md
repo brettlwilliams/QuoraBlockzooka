@@ -1,76 +1,88 @@
 # QuoraBlockzooka
+
 A series of small utilities that help with curating your experience on Quora.
 
-The underlying assumptions
-* People are lazy
-* Computers are dumb
-* Thus, they do the same dumb thing over and over again
+### The Underlying Assumptions
+* People are lazy.
+* Computers are dumb.
+* Thus, they do the same dumb thing over and over again.
 
-## Followers
-This bookmarklet automates the process of collecting profile links from a Quora profile. When you run it, the script:
+---
 
-* Opens the Followers list: Automatically finds and clicks the "Followers" button.
-* Auto-Scrolls: Handles Quora's infinite scrolling for you, moving to the bottom until the entire list is loaded.
-* Extracts Profiles: Scans the list for unique profile URLs.
-* Export: Displays the results in a clean pop-up window with a "Copy to Clipboard" button for easy use.
+## 🛠 Tools
 
+### Followers
+This bookmarklet automates the collection of profile links from a Quora user's followers list. When activated, it:
+* **Opens the List:** Automatically finds and clicks the "Followers" button.
+* **Auto-Scrolls:** Handles Quora's infinite scrolling, moving to the bottom until the entire list is loaded.
+* **Extracts Profiles:** Scans the list for unique profile URLs.
+* **Export:** Displays results in a clean pop-up window with a "Copy to Clipboard" button.
 
-## Contributors
+### Contributors
+This bookmarklet automates the collection of profile links from Quora Contributors within a Space. When activated, it:
+* **Locates Contributors:** Automatically finds and clicks the "View all" button in the Contributors area.
+* **Smart Auto-Scroll:** Detects the scrollable window and scrolls to the bottom, pausing for content to load until the list is complete.
+* **Extracts Profiles:** Scans the loaded list and extracts all unique Quora profile URLs.
+* **Export:** Displays links in a pop-up overlay with a "Copy to Clipboard" button.
 
-This bookmarklet automates the collection of profile links from a Quora Contributors when run on a 
-Quora space. When executed, it:
+### Block
+This bookmarklet streamlinesblocking a Quora user by automating the multiple clicks usually required. When activated on a user's profile, it:
+* **Opens the Menu:** Instantly finds and clicks the "More" (three dots) overflow menu.
+* **Selects Block:** Locates the "Block" option within the pop-up menu and clicks it.
+* **Confirms Action:** Detects the final confirmation prompt and clicks "Block" to finish the process.
 
-* Locates the Contributors: Automatically finds and clicks the "View all" button in the Contributors area.
-* Smart Auto-Scroll: Detects the scrollable window and automatically scrolls to the bottom, pausing to let new profiles load until the entire list is reached.
-* Extracts Profiles: Scans the loaded list and extracts all unique Quora profile URLs.
-* Export: Displays the links in a pop-up overlay with a "Copy to Clipboard" button for easy copying.
+### Space Report Extract
+This bookmarklet is a profile scraper for Quora Space feeds or member pages. When activated, it:
+* **Subdomain Check:** Ensures it is running on a Quora Space subdomain to prevent errors.
+* **Customizable Depth:** Provides a menu to choose the number of "scrolls" (up to 50) to determine how deep to scrape.
+* **Intelligent Scrolling:** Automatically scrolls and waits for content using a randomized "jitter" delay to mimic human behaviour.
+* **Extraction & Cleanup:** Scans for profile URLs (specifically 'bubbled' shared URLs in post bodies), removes duplicates, and filters tracking data.
+* **Manual Override:** Includes a "Force Stop & Show" button to end the process early and view collected links.
 
-## Block
-This bookmarklet streamlines the process of blocking a Quora user by automating the multiple clicks usually required. When activated on a user's profile, it:
+### Mass Report
+This bookmarklet automates the reporting process for multiple items on a Quora user's "Questions" tab. When activated, it:
+* **Page Verification:** Ensures you are on a valid `/questions` profile page before starting.
+* **Custom Volume:** Provides a pop-up to specify how many questions to report (skipping the first to avoid accidental self-reports).
+* **Reason Selection:** Allows you to choose between reporting for Spam or Child Safety (CSAM).
+* **Full Automation:** Iterates through questions, opens the "More" menu, selects "Report," and submits based on your chosen reason.
+* **Live Status:** Displays a real-time progress tracker (e.g., "Reporting 3 of 5...").
 
-* Opens the Menu: Instantly finds and clicks the "More" (three dots) overflow menu.
-* Selects Block: Locates the "Block" option within the pop-up menu and clicks it automatically.
-* Confirms Action: Detects the final confirmation prompt and clicks "Block" to finish the process.
+### The Blockzooka
+*Note: Run this overnight or on a separate computer. It is slow for a reason.*
+This bookmarklet allows you to paste a list of profile URLs and automates the blocking process for all of them. When activated, it:
+* **Batch Processing:** Provides a text area to paste multiple Quora profile links.
+* **Safety Filters:** Automatically skips profiles that are already blocked or users who follow you.
+* **Smart Throttling:** Uses a randomized cooldown (4–9 seconds) to mimic human behavior and avoid anti-bot detection.
+* **Automated Navigation:** Opens profiles in a small popup, performs the block actions, and closes the window automatically.
+* **Progress Tracking:** Features a live progress bar and status updates (e.g., "Cooldown...", "3 of 50").
 
-## Space Report Extract
-
-This bookmarklet is a  Profile Scraper for Quora report Spaces. It automates the extraction of profile links from Space feeds or member pages. When activated, it:
-
-* Subdomain Check: Ensures it's running on a Quora Space (subdomain) to prevent errors.
-* Customizable Depth: Provides a pop-up menu where you can choose the number of "scrolls" (up to 50) to determine how deep the scraper should go.
-* Intelligent Scrolling: Automatically scrolls the page and waits for new content to load using a randomized "jitter" delay to mimic human behavior.
-* Extraction & Cleanup: Scans the text for profile URLs, removes duplicates, and filters out unnecessary tracking data. Extraction only applies to the 'bubbled' shared URLs in the body of a post.
-* Manual Override: Features a "Force Stop & Show" button that lets you end the process early and see the links collected up to that point.
-
-## Mass Report
-This bookmarklet automates the reporting process for multiple questions on a Quora user's profile. It is limited to running on the Questions tab of a profile. When activated, it:
-
-* Page Verification: Checks to ensure you are on a valid /questions profile page before starting.
-* Custom Volume: Provides a pop-up where you can specify exactly how many questions you want to report (skipping the first one to avoid accidental self-reporting).
-* Reason Selection: Allows you to choose between reporting for Spam or Child Safety (CSAM).
-* Full Automation: Iterates through the questions, automatically opens the "More" menu, selects "Report," chooses the specified reason, and submits the report.
-* Live Status: Displays a real-time progress tracker (e.g., "Reporting 3 of 5...") so you know exactly where the process stands.
-
-## The Blockzooka
-Run The Blockzooka overnight or on a separate computer. It is slow for a reason.
-
-This bookmarklet is the Blockzooka. It allows you to paste a list of profile URLs and automates the blocking process for all of them in one session. When you run it, the script:
-
-* Batch Processing: Provides a text area where you can paste multiple Quora profile links (like the ones extracted by the "Followers" or "Scraper" tools).
-* Safety Filters: Automatically skips profiles that are already blocked or users who are currently following you.
-* Smart Throttling: Uses a randomized cooldown timer (4–9 seconds) between blocks to mimic human behavior and prevent Quora from flagging the account for "bot-like" activity.
-* Automated Navigation: Opens each profile in a small popup window, performs the block/confirm actions, and closes the window once finished.
-* Progress Tracking: Features a live progress bar and status updates (e.g., "Blocking...", "Cooldown...", "3 of 50") so you can monitor the batch.
+---
 
 ## ⚠️ Disclaimer & Safety Warning
-Use these tools at your own risk. QuoraBlockzooka is a collection of automation scripts designed to help with moderation and curation, but they must be used responsibly.
+**Use these tools at your own risk.** QuoraBlockzooka is a collection of automation scripts designed for moderation and curation, but they must be used responsibly.
 
+* **Mass Reporting:** Automated reporting should only be used for content that clearly violates Quora's Terms of Service. Abuse of the reporting system can lead to your own account being flagged or banned.
+* **Manual Verification:** Always verify profiles before initiating batch actions. Automation is a "force multiplier"—it makes mistakes happen faster.
+* **Throttling:** While these scripts include cooldown timers, aggressive use can be detected by Quora’s anti-bot systems. Avoid running batches larger than 100 in a single sitting.
+* **Account Safety:** These scripts are provided for educational use only. The developer is not responsible for account restrictions, bans, or data loss. Using these tools carries a risk of a Quora ban. This may or may not be a bad thing.
 
-* Mass Reporting: Automated reporting should only be used for content that clearly violates Quora's Terms of Service (e.g., actual spam or illegal content). Abuse of the reporting system can lead to your own account being flagged or banned by Quora.
-* Manual Verification: Always verify the profile or content before initiating a batch action. Automation is a "force multiplier"—it makes mistakes happen faster if you aren't careful. The Blockzooka is set up to not block people who follow you.
+---
 
-* Throttling: While these scripts include built-in "cooldown" timers to mimic human behaviour, aggressive use of automation can be detected by Quora’s anti-bot systems.
-* Avoid running large batches (100+) in a single sitting.
-* If using The Blockzooka, consider running it on a secondary device or during off-hours to avoid interference with your active browsing session.
+## 🚀 How to Install and Use
+A bookmarklet is a tiny "app" that lives in your browser's bookmarks bar. The effects disappear if you refresh the page.
 
-These scripts are provided for educational use only. The developer is not responsible for any account restrictions, bans, or data loss resulting from the use of these bookmarklets. No guarantees or services provided. You risk a Quora ban by using these tools. That may or may not be a good thing.
+### Step 1: Show your Bookmarks Bar
+* **Chrome/Edge:** `Ctrl + Shift + B` (Windows) or `Cmd + Shift + B` (Mac).
+* **Firefox:** Right-click the toolbar > **Bookmarks Toolbar** > **Always Show**.
+
+### Step 2: Create the Bookmarklet
+1. Right-click an empty space on your **Bookmarks Bar**.
+2. Select **Add Page** (or **New Bookmark**).
+3. **Name:** Give it a clear name (e.g., "Blockzooka").
+4. **URL:** Copy the entire code (starting with `javascript:`) from the relevant file in this repo and paste it here.
+5. Click **Save**.
+
+### Step 3: Run the Script
+1. Navigate to the relevant Quora page (Space, Profile, or Questions tab).
+2. Click the bookmark you created.
+3. Follow any on-screen prompts or status updates.
