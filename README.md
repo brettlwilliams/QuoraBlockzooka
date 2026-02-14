@@ -51,4 +51,25 @@ This bookmarklet automates the reporting process for multiple questions on a Quo
 * Live Status: Displays a real-time progress tracker (e.g., "Reporting 3 of 5...") so you know exactly where the process stands.
 
 ## The Blockzooka
+Run The Blockzooka overnight or on a separate computer. It is slow for a reason.
 
+This bookmarklet is the Blockzooka. It allows you to paste a list of profile URLs and automates the blocking process for all of them in one session. When you run it, the script:
+
+* Batch Processing: Provides a text area where you can paste multiple Quora profile links (like the ones extracted by the "Followers" or "Scraper" tools).
+* Safety Filters: Automatically skips profiles that are already blocked or users who are currently following you.
+* Smart Throttling: Uses a randomized cooldown timer (4–9 seconds) between blocks to mimic human behavior and prevent Quora from flagging the account for "bot-like" activity.
+* Automated Navigation: Opens each profile in a small popup window, performs the block/confirm actions, and closes the window once finished.
+* Progress Tracking: Features a live progress bar and status updates (e.g., "Blocking...", "Cooldown...", "3 of 50") so you can monitor the batch.
+
+## ⚠️ Disclaimer & Safety Warning
+Use these tools at your own risk. QuoraBlockzooka is a collection of automation scripts designed to help with moderation and curation, but they must be used responsibly.
+
+
+* Mass Reporting: Automated reporting should only be used for content that clearly violates Quora's Terms of Service (e.g., actual spam or illegal content). Abuse of the reporting system can lead to your own account being flagged or banned by Quora.
+* Manual Verification: Always verify the profile or content before initiating a batch action. Automation is a "force multiplier"—it makes mistakes happen faster if you aren't careful. The Blockzooka is set up to not block people who follow you.
+
+* Throttling: While these scripts include built-in "cooldown" timers to mimic human behaviour, aggressive use of automation can be detected by Quora’s anti-bot systems.
+* Avoid running large batches (100+) in a single sitting.
+* If using The Blockzooka, consider running it on a secondary device or during off-hours to avoid interference with your active browsing session.
+
+These scripts are provided for educational use only. The developer is not responsible for any account restrictions, bans, or data loss resulting from the use of these bookmarklets. No guarantees or services provided. You risk a Quora ban by using these tools. That may or may not be a good thing.
