@@ -55,7 +55,7 @@ This bookmarklet automates the reporting process for multiple items on a Quora u
 * **Automated Workflow:** Iterates through questions, opens the "More" menu, selects "Report," and submits based on your chosen reason.
 * **Live Status:** Displays a real-time progress tracker (e.g., "Reporting 3 of 5...").
 
-* ### [Mass Report A](https://github.com/brettlwilliams/QuoraBlockzooka/blob/main/massreport_a.js)
+### [Mass Report A](https://github.com/brettlwilliams/QuoraBlockzooka/blob/main/massreport_a.js)
 
 This bookmarklet automates the reporting process for multiple items on a Quora user's "Answers" profile tab. When activated, it performs the following:
 
