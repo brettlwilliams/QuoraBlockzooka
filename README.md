@@ -50,10 +50,21 @@ This bookmarklet is a profile scraper for Quora Space feeds. When activated, it:
 ### [Mass Report Q](https://github.com/brettlwilliams/QuoraBlockzooka/blob/main/massReport.js)
 This bookmarklet automates the reporting process for multiple items on a Quora user's "Questions" tab. When activated, it:
 * **Page Verification:** Ensures you are on a valid `/questions` profile page before starting.
-* **Custom Volume:** Provides a pop-up to specify how many questions to report (skipping the first to avoid accidental self-reports).
+* **Custom Interface:** Provides a pop-up to specify how many questions to report (skipping the first to avoid accidental self-reports).
 * **Reason Selection:** Allows you to choose between reporting for Spam or Child Safety (CSAM).
-* **Full Automation:** Iterates through questions, opens the "More" menu, selects "Report," and submits based on your chosen reason.
+* **Automated Workflow:** Iterates through questions, opens the "More" menu, selects "Report," and submits based on your chosen reason.
 * **Live Status:** Displays a real-time progress tracker (e.g., "Reporting 3 of 5...").
+
+* ### [Mass Report A](https://github.com/brettlwilliams/QuoraBlockzooka/blob/main/massreport_a.js)
+
+This bookmarklet automates the reporting process for multiple items on a Quora user's "Answers" profile tab. When activated, it performs the following:
+
+* **Page Verification:** Uses a regex check to ensure the script is running on a valid Quora profile "Answers" page (e.g., `quora.com/profile/Name/answers`) before initializing.
+* **Custom Interface:** Injects a stylized pop-up menu into the browser window, allowing the user to specify the number of answers to report.
+* **Reason Selection:** Provides toggle options to select the specific reporting category, such as "Spam" or "CSAM (Child Safety)."
+* **Automated Workflow:** Uses asynchronous functions to iterate through the page's overflow menus, automatically clicking through the "Report" dialogs and selecting the predefined reasons.
+* **Live Status:** Includes a real-time status indicator within the UI that updates as it processes each report (e.g., "Reporting 2 of 10...") and closes automatically upon completion.
+
 
 ### [The Blockzooka](https://github.com/brettlwilliams/QuoraBlockzooka/blob/main/theBlockzooka.js)
 *Note: Run this overnight or on a separate computer. It is slow for a reason.*
