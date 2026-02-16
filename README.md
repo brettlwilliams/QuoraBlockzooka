@@ -11,43 +11,45 @@ A series of small utilities that help with curating your experience on Quora.
 
 ## 🛠 Tools
 
-### Followers
+
+### [The Blockzooka (v2/Main)](https://github.com/brettlwilliams/QuoraBlockzooka/blob/main/theBlockzooka.js)
+
+### [Followers](https://github.com/brettlwilliams/QuoraBlockzooka/blob/main/followerslist.js)
 This bookmarklet automates the collection of profile links from a Quora user's followers list. When activated, it:
 * **Opens the List:** Automatically finds and clicks the "Followers" button.
 * **Auto-Scrolls:** Handles Quora's infinite scrolling, moving to the bottom until the entire list is loaded.
 * **Extracts Profiles:** Scans the list for unique profile URLs.
 * **Export:** Displays results in a clean pop-up window with a "Copy to Clipboard" button.
 
-### Contributors
+### [Contributors](https://github.com/brettlwilliams/QuoraBlockzooka/blob/main/contributorslist.js)
 This bookmarklet automates the collection of profile links from Quora Contributors within a Space. When activated, it:
 * **Locates Contributors:** Automatically finds and clicks the "View all" button in the Contributors area.
 * **Smart Auto-Scroll:** Detects the scrollable window and scrolls to the bottom, pausing for content to load until the list is complete.
 * **Extracts Profiles:** Scans the loaded list and extracts all unique Quora profile URLs.
 * **Export:** Displays links in a pop-up overlay with a "Copy to Clipboard" button.
 
-### Block
+### [Block](https://github.com/brettlwilliams/QuoraBlockzooka/blob/main/block.js)
 This bookmarklet streamlines blocking a Quora user by automating the multiple clicks usually required. When activated on a user's profile, it:
 * **Opens the Menu:** Instantly finds and clicks the "More" (three dots) overflow menu.
 * **Selects Block:** Locates the "Block" option within the pop-up menu and clicks it.
 * **Confirms Action:** Detects the final confirmation prompt and clicks "Block" to finish the process.
 
-### Mute Space
+### [Space Mute](https://github.com/brettlwilliams/QuoraBlockzooka/blob/main/spacemute.js)
 This bookmarklet streamlines muting a space by automating the multiple clicks usually required. When activated on a space it:
 * **Space Check:** Verifies that you are currently on a Quora Space subdomain to ensure the script targets the correct context.
 * **Opens the Menu:** Automatically locates and triggers the "More" overflow menu (three dots) on the Space header.
 * * **Selects Mute:** Identifies the "Mute" option within the popover menu and initiates the request.
 * * **Confirms Action:** Detects the final confirmation prompt and clicks "Confirm".
 
-
-### Space Report Extract
-This bookmarklet is a profile scraper for Quora Space feeds or member pages. When activated, it:
+### [Extract Space Reports](https://github.com/brettlwilliams/QuoraBlockzooka/blob/main/extractSpaceReports.js)
+This bookmarklet is a profile scraper for Quora Space feeds. When activated, it:
 * **Subdomain Check:** Ensures it is running on a Quora Space subdomain to prevent errors.
 * **Customizable Depth:** Provides a menu to choose the number of "scrolls" (up to 50) to determine how deep to scrape.
 * **Intelligent Scrolling:** Automatically scrolls and waits for content using a randomized "jitter" delay to mimic human behaviour.
 * **Extraction & Cleanup:** Scans for profile URLs (specifically 'bubbled' shared URLs in post bodies), removes duplicates, and filters tracking data.
 * **Manual Override:** Includes a "Force Stop & Show" button to end the process early and view collected links.
 
-### Mass Report
+### [Mass Report Q](https://github.com/brettlwilliams/QuoraBlockzooka/blob/main/massReport.js)
 This bookmarklet automates the reporting process for multiple items on a Quora user's "Questions" tab. When activated, it:
 * **Page Verification:** Ensures you are on a valid `/questions` profile page before starting.
 * **Custom Volume:** Provides a pop-up to specify how many questions to report (skipping the first to avoid accidental self-reports).
@@ -55,7 +57,7 @@ This bookmarklet automates the reporting process for multiple items on a Quora u
 * **Full Automation:** Iterates through questions, opens the "More" menu, selects "Report," and submits based on your chosen reason.
 * **Live Status:** Displays a real-time progress tracker (e.g., "Reporting 3 of 5...").
 
-### The Blockzooka
+### [The Blockzooka (v2/Main)](https://github.com/brettlwilliams/QuoraBlockzooka/blob/main/theBlockzooka.js)
 *Note: Run this overnight or on a separate computer. It is slow for a reason.*
 This bookmarklet allows you to paste a list of profile URLs and automates the blocking process for all of them. When activated, it:
 * **Batch Processing:** Provides a text area to paste multiple Quora profile links.
