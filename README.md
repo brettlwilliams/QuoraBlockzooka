@@ -12,8 +12,6 @@ A series of small utilities that help with curating your experience on Quora.
 ## 🛠 Tools
 
 
-### [The Blockzooka (v2/Main)](https://github.com/brettlwilliams/QuoraBlockzooka/blob/main/theBlockzooka.js)
-
 ### [Followers](https://github.com/brettlwilliams/QuoraBlockzooka/blob/main/followerslist.js)
 This bookmarklet automates the collection of profile links from a Quora user's followers list. When activated, it:
 * **Opens the List:** Automatically finds and clicks the "Followers" button.
@@ -57,7 +55,7 @@ This bookmarklet automates the reporting process for multiple items on a Quora u
 * **Full Automation:** Iterates through questions, opens the "More" menu, selects "Report," and submits based on your chosen reason.
 * **Live Status:** Displays a real-time progress tracker (e.g., "Reporting 3 of 5...").
 
-### [The Blockzooka (v2/Main)](https://github.com/brettlwilliams/QuoraBlockzooka/blob/main/theBlockzooka.js)
+### [The Blockzooka](https://github.com/brettlwilliams/QuoraBlockzooka/blob/main/theBlockzooka.js)
 *Note: Run this overnight or on a separate computer. It is slow for a reason.*
 This bookmarklet allows you to paste a list of profile URLs and automates the blocking process for all of them. When activated, it:
 * **Batch Processing:** Provides a text area to paste multiple Quora profile links.
