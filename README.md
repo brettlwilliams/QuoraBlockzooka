@@ -31,6 +31,14 @@ This bookmarklet streamlines blocking a Quora user by automating the multiple cl
 * **Selects Block:** Locates the "Block" option within the pop-up menu and clicks it.
 * **Confirms Action:** Detects the final confirmation prompt and clicks "Block" to finish the process.
 
+### Mute Space
+This bookmarklet streamlines muting a space by automating the multiple clicks usually required. When activated on a space it:
+* **Space Check:** Verifies that you are currently on a Quora Space subdomain to ensure the script targets the correct context.
+* **Opens the Menu:** Automatically locates and triggers the "More" overflow menu (three dots) on the Space header.
+* * **Selects Mute:** Identifies the "Mute" option within the popover menu and initiates the request.
+* * **Confirms Action:** Detects the final confirmation prompt and clicks "Confirm".
+
+
 ### Space Report Extract
 This bookmarklet is a profile scraper for Quora Space feeds or member pages. When activated, it:
 * **Subdomain Check:** Ensures it is running on a Quora Space subdomain to prevent errors.
