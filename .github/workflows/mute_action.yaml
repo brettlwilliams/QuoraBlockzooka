@@ -6,6 +6,8 @@ on:
       - main
     paths:
       - 'full/spacemute.js'
+ # This allows the workflow to be called from main.yml
+  workflow_call:
 
 jobs:
   bookmarklet-job:
