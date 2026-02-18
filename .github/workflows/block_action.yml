@@ -6,6 +6,8 @@ on:
       - block_action
     paths:
       - 'full/block.js'
+  # This allows the workflow to be called from main.yml
+  workflow_call:
 
 jobs:
   bookmarklet-job:
