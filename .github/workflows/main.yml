@@ -1,1 +1,16 @@
+name: Main Multi-Workflow Controller
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  # This calls your block_action.yaml file
+  run-block-action:
+    uses: ./.github/workflows/block_action.yml
+
+  # This calls your static.yml file
+  run-static-site:
+    uses: ./.github/workflows/static.yml
 
