@@ -4,11 +4,15 @@
     <title>Quora Blockzooka Bookmarklets</title>
 </head>
 <body>
-    <h1>Install /block</h1>
+    <!-- /block -->
+    <h3>Install /block</h3>
     <p>Drag the button below to your bookmarks bar:</p>
 
     <a id="block" href="javascript:(()=&gt;{var o=document.querySelector('button.puppeteer_test_overflow_menu[aria-haspopup=&quot;menu&quot;]');o?(o.click(),setTimeout(()=&gt;{var o=document.querySelectorAll(&quot;.puppeteer_test_popover_item&quot;),o=Array.from(o).find(o=&gt;&quot;Block&quot;===o.textContent.trim()||o.innerText.includes(&quot;Block&quot;));o?(o.click(),console.log(&quot;Initial Block option clicked.&quot;),setTimeout(()=&gt;{var o=document.querySelector(&quot;button.puppeteer_test_modal_submit&quot;);o&amp;&amp;o.textContent.includes(&quot;Block&quot;)?(o.click(),console.log(&quot;Final Block confirmation clicked.&quot;)):console.log(&quot;Confirmation Block button not found.&quot;)},400)):console.log(&quot;Block option not found in menu.&quot;)},300)):console.log(&quot;Overflow menu button (three dots) not found.&quot;)})();">/block Drag Me to Bookmarks</a>
-    <h1>Install /mute</h1>
+
+     <!-- /mute -->
+    
+    <h3>Install /mute</h3>
     <p>Drag the button below to your bookmarks bar:</p>
     <a id="mute" href="">/mute Drag Me to Bookmarks</a>
 </body>
