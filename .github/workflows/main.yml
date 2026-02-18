@@ -6,11 +6,15 @@ on:
       - main
 
 jobs:
-  # This calls your block_action.yaml file
+  # This calls block_action.yaml file
   run-block-action:
     uses: ./.github/workflows/block_action.yml
 
-  # This calls your static.yml file
+      # This calls mute_action.yaml file
+  run-block-action:
+    uses: ./.github/workflows/mute_action.yml
+
+  # This calls static.yml file
   run-static-site:
     uses: ./.github/workflows/static.yml
 
