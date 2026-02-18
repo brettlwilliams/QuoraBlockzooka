@@ -3,7 +3,7 @@ name: Block Action Quora
 on:
   push:
     branches:
-      - main
+      - block_action
     paths:
       - 'full/block.js'
 
