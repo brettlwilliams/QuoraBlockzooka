@@ -31,8 +31,4 @@ jobs:
           cat bookmarklet/install_page.htm
         shell: bash
 
-on:
-  workflow_run:
-    workflows: ["Block Action Quora"]
-    types:
-      - completed
+
