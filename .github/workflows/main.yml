@@ -1,6 +1,5 @@
 - name: Bookmarklet Generator
   uses: ulrischa/js_to_bookmarklet_action@v1
-
 name: Block Action Quora
 
 on:
