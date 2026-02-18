@@ -11,7 +11,7 @@ jobs:
     uses: ./.github/workflows/block_action.yml
 
       # This calls mute_action.yaml file
-  run-block-action:
+  run-mute-action:
     uses: ./.github/workflows/mute_action.yml
 
   # This calls static.yml file
