@@ -1,0 +1,93 @@
+name: Quora Bookmarklet Generator
+
+on:
+  push:
+    branches:
+      - main
+      - block_action
+    paths:
+      - 'full/*.js'
+  workflow_dispatch: # Allows you to run this manually from the Actions tab
+  workflow_call:
+
+jobs:
+  check-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      # We map the filters to outputs for the next job
+      changed_files: ${{ steps.filter.outputs.changes }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            block: 'full/block.js'
+            contributors: 'full/contributorslist.js'
+            extract: 'full/extractSpaceReports.js'
+            followers: 'full/followerslist.js'
+            mass_a: 'full/massReport_a.js'
+            mass_q: 'full/massReport_q.js'
+            mute: 'full/spacemute.js'
+            zooka: 'full/theBlockzooka.js'
+
+  generate-bookmarklets:
+    needs: check-changes
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false # If one fails, others should still attempt to run
+      matrix:
+        include:
+          - key: block
+            file: 'full/block.js'
+            id: 'block'
+            name: 'Block'
+          - key: contributors
+            file: 'full/contributorslist.js'
+            id: 'contributors'
+            name: 'Contributors List'
+          - key: extract
+            file: 'full/extractSpaceReports.js'
+            id: 'extract'
+            name: 'Space Report Extractor'
+          - key: followers
+            file: 'full/followerslist.js'
+            id: 'followers'
+            name: 'Followers List'
+          - key: mass_a
+            file: 'full/massReport_a.js'
+            id: 'mass_a'
+            name: 'Mass Report (A)'
+          - key: mass_q
+            file: 'full/massReport_q.js'
+            id: 'mass_q'
+            name: 'Mass Report (Q)'
+          - key: mute
+            file: 'full/spacemute.js'
+            id: 'mute'
+            name: 'Space Mute'
+          - key: zooka
+            file: 'full/theBlockzooka.js'
+            id: 'zooka'
+            name: 'The Blockzooka'
+
+    # Logic: Run if the specific file changed, OR if it's a manual/workflow call
+    if: |
+      contains(needs.check-changes.outputs.changed_files, matrix.key) || 
+      github.event_name == 'workflow_dispatch' || 
+      github.event_name == 'workflow_call'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Generate Bookmarklet for ${{ matrix.name }}
+        uses: ulrischa/js_to_bookmarklet_action@v1
+        with:
+          source_js_file: ${{ matrix.file }}
+          target_html_file: 'bookmarklet/install_page.htm'
+          target_element_id: ${{ matrix.id }}
+          commit_message: 'Update ${{ matrix.name }} bookmarklet link'
+
+      - name: Verification
+        run: echo "Successfully updated ${{ matrix.file }} for element ID ${{ matrix.id }}"
