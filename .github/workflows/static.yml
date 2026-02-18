@@ -1,11 +1,15 @@
+name: Deploy Static Site
+
 on:
-  workflow_run:
-    workflows: ["Block Action Quora"]
-    types:
-      - completed
+  workflow_call:  # <-- This is the "Prereq E1" change
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    # Granting necessary permissions for GitHub Pages
+    permissions:
+      pages: write
+      id-token: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -16,10 +20,9 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Point this to the folder containing your .htm file
+          # Double check this folder exists in your repo!
           path: './bookmarklet'
 
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-
