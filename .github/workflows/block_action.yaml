@@ -1,0 +1,30 @@
+name: Block Action Quora
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'full/block.js'
+
+jobs:
+  bookmarklet-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Use Bookmarklet Generator Action
+        uses: ulrischa/js_to_bookmarklet_action@v1
+        with:
+          source_js_file: 'full/block.js'
+          target_html_file: 'bookmarklet/install_page.htm'
+          target_element_id: 'block'
+          commit_message: 'Update block bookmarklet link'
+
+      - name: Debug Files and Environment
+        run: |
+          ls -la .
+          cat full/block.js
+          cat bookmarklet/install_page.htm
+        shell: bash
