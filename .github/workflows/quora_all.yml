@@ -71,18 +71,21 @@ jobs:
             id: 'zooka'
             name: 'The Blockzooka'
 
-    # Logic: Run if the specific file changed, OR if it's a manual/workflow call
-    if: |
-      contains(needs.check-changes.outputs.changed_files, matrix.key) || 
-      github.event_name == 'workflow_dispatch' || 
-      github.event_name == 'workflow_call'
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        # Matrix values are valid here at the step level
+        if: |
+          contains(needs.check-changes.outputs.changed_files, matrix.key) || 
+          github.event_name == 'workflow_dispatch' || 
+          github.event_name == 'workflow_call'
 
       - name: Generate Bookmarklet for ${{ matrix.name }}
         uses: ulrischa/js_to_bookmarklet_action@v1
+        if: |
+          contains(needs.check-changes.outputs.changed_files, matrix.key) || 
+          github.event_name == 'workflow_dispatch' || 
+          github.event_name == 'workflow_call'
         with:
           source_js_file: ${{ matrix.file }}
           target_html_file: 'bookmarklet/install_page.htm'
@@ -90,4 +93,8 @@ jobs:
           commit_message: 'Update ${{ matrix.name }} bookmarklet link'
 
       - name: Verification
+        if: |
+          contains(needs.check-changes.outputs.changed_files, matrix.key) || 
+          github.event_name == 'workflow_dispatch' || 
+          github.event_name == 'workflow_call'
         run: echo "Successfully updated ${{ matrix.file }} for element ID ${{ matrix.id }}"
