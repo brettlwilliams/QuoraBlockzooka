@@ -6,15 +6,11 @@ on:
       - main
 
 jobs:
-  # This calls block_action.yaml file
-  run-block-action:
-    uses: ./.github/workflows/block_action.yml
+  # This calls quora_all.yaml file
+  run-quora-all:
+    uses: ./.github/workflows/quora_all.yml
 
-      # This calls mute_action.yaml file
-  run-mute-action:
-    uses: ./.github/workflows/mute_action.yml
-
-  # This calls static.yml file
+     # This calls static.yml file
   run-static-site:
     uses: ./.github/workflows/static.yml
 
