@@ -43,6 +43,6 @@
         }, 300);
         
     } else {
-        console.log('Overflow menu button (three dots) not found.');
+        console.log('Overflow menu button not found.');
     }
 })();
