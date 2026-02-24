@@ -1,112 +1,163 @@
-(async function() {
-    // 1. INJECT STYLES
-    // Creates a <style> block to format the popup window that appears at the end.
+javascript: (async function() {
+    /* --- 1. UI STYLING --- */
+    /* Create and inject a style element to format the popup interface */
     const style = document.createElement("style");
     style.innerHTML = `
         #q-extractor-popup {
-            position: fixed; top: 10%; left: 50%; transform: translateX(-50%);
-            width: 400px; max-height: 70%; background: #fff; border: 1px solid #ccc;
-            box-shadow: 0 4px 15px rgba(0,0,0,.3); z-index: 10000; padding: 20px;
-            font-family: sans-serif; border-radius: 8px; display: flex; flex-direction: column;
+            position: fixed;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 400px;
+            max-height: 70%;
+            background: #fff;
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 15px rgba(0,0,0,.3);
+            z-index: 10000;
+            padding: 20px;
+            font-family: sans-serif;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column
         }
-        #q-extractor-header { display: flex; justify-content: space-between; margin-bottom: 10px; align-items: center; }
-        #q-extractor-header h3 { margin: 0; font-size: 16px; color: #333; }
-        #q-extractor-close { cursor: pointer; font-weight: bold; color: #999; }
-        #q-extractor-output { 
-            background: #f4f4f4; padding: 10px; border-radius: 4px; overflow-y: auto; 
-            flex-grow: 1; font-family: monospace; font-size: 12px; white-space: pre-wrap; border: 1px solid #ddd; 
+        #q-extractor-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            align-items: center
         }
-        #q-extractor-footer { margin-top: 15px; display: flex; gap: 10px; }
-        #q-extractor-copy { 
-            background: #2e69ff; color: #fff; border: none; padding: 8px 15px; 
-            border-radius: 4px; cursor: pointer; font-weight: bold; 
+        #q-extractor-header h3 {
+            margin: 0;
+            font-size: 16px;
+            color: #333
+        }
+        #q-extractor-close {
+            cursor: pointer;
+            font-weight: bold;
+            color: #999
+        }
+        #q-extractor-output {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-y: auto;
+            flex-grow: 1;
+            font-family: monospace;
+            font-size: 12px;
+            white-space: pre-wrap;
+            border: 1px solid #ddd
+        }
+        #q-extractor-footer {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px
+        }
+        #q-extractor-copy {
+            background: #2e69ff;
+            color: #fff;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold
         }
     `;
     document.head.appendChild(style);
 
-    // 2. UTILITY: SLEEP FUNCTION
-    // A helper to pause execution so Quora has time to load new content.
-    const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+    /* --- 2. UTILITY FUNCTIONS --- */
+    /* Simple sleep/delay function using Promises */
+    const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-    // 3. FIND AND CLICK "VIEW ALL"
-    // Searches for a button/span/div that says "View all" to open the contributors modal.
-    let viewAllBtn = Array.from(document.querySelectorAll("div, span, button"))
-        .find(el => el.textContent.trim() === "View all" && el.children.length === 0);
+    /* --- 3. TRIGGER LIST --- */
+    /* Locate the "View all" or "Contributors" button to open the modal */
+    let trigger = Array.from(document.querySelectorAll("div, span, button")).find(el => 
+        (el.textContent.trim() === "View all" || el.textContent.includes("Contributors")) && 
+        el.children.length === 0
+    );
 
-    if (!viewAllBtn) {
-        return alert("Could not find 'View all'. Make sure the Contributors section is visible.");
-    }
-    viewAllBtn.click();
+    if (!trigger) return alert("Could not find the contributors list trigger.");
+    trigger.click();
 
-    // 4. FIND THE SCROLLABLE CONTAINER
-    // Looks for the modal div that has an active scrollbar.
+    /* --- 4. FIND SCROLLABLE CONTAINER --- */
+    /* Wait for the modal to appear and identify the scrollable element */
     let scrollContainer = null;
     for (let i = 0; i < 15; i++) {
-        await sleep(500); // Wait for modal to pop up
+        await sleep(500);
         scrollContainer = Array.from(document.querySelectorAll("div")).find(el => {
-            const css = window.getComputedStyle(el);
-            return (css.overflowY === "auto" || css.overflow === "auto") && el.scrollHeight > el.clientHeight;
+            const style = window.getComputedStyle(el);
+            return (style.overflowY == "auto" || style.overflow == "auto") && 
+                   el.scrollHeight > el.clientHeight;
         });
         if (scrollContainer) break;
     }
 
     if (!scrollContainer) return alert("Scrolling list not found.");
 
-    // 5. AUTOMATED SCROLLING
-    // Scrolls to the bottom repeatedly to trigger "infinite load" until no more profiles appear.
+    /* --- 5. AUTOMATED SCROLLING --- */
+    /* Scroll to the bottom repeatedly to trigger lazy-loading of the list */
     let lastHeight = 0;
-    let retries = 0;
-    while (retries < 3) {
+    let stagnationCount = 0;
+    
+    while (stagnationCount < 4) {
         scrollContainer.scrollTop = scrollContainer.scrollHeight;
-        // Random delay between 1.5s and 2.5s to mimic human behavior
-        await sleep(1500 + Math.random() * 1000);
+        /* Randomized delay to mimic human behavior and allow content to load */
+        await sleep(1500 + 1000 * Math.random());
 
         if (scrollContainer.scrollHeight === lastHeight) {
-            retries++;
-            // Try nudging the scroll to trigger lazy loading
-            scrollContainer.scrollTop -= 200;
-            await sleep(500);
+            stagnationCount++;
+            /* Nudge the scroll to try and trigger more loading if stuck */
+            scrollContainer.scrollTop -= 300;
+            await sleep(200);
             scrollContainer.scrollTop = scrollContainer.scrollHeight;
         } else {
             lastHeight = scrollContainer.scrollHeight;
-            retries = 0;
+            stagnationCount = 0;
         }
     }
 
-    // 6. EXTRACT PROFILE LINKS
-    // Finds all links containing "/profile/" and uses a Set to ensure uniqueness.
-    const profileLinks = [...new Set(
-        Array.from(scrollContainer.querySelectorAll('a[href*="/profile/"]'))
-        .map(el => el.href)
-    )];
+    /* --- 6. DATA EXTRACTION --- */
+    /* Identify all profile links within the list rows */
+    const rows = scrollContainer.querySelectorAll('.q-flex.qu-alignItems--center.qu-py--small');
+    const links = [];
+    
+    rows.forEach(row => {
+        const followBtn = row.querySelector('button span[aria-label^="Follow"]');
+        const profileLink = row.querySelector('a[href*="/profile/"]');
+        if (followBtn && profileLink) {
+            links.push(profileLink.href);
+        }
+    });
 
-    // 7. SHOW RESULTS POPUP
-    // Dynamically builds the UI with the results and a copy button.
+    /* Remove duplicates */
+    const uniqueLinks = [...new Set(links)];
+
+    /* --- 7. UI CONSTRUCTION & INJECTION --- */
+    /* Build the final results popup */
     const popup = document.createElement("div");
     popup.id = "q-extractor-popup";
     popup.innerHTML = `
         <div id="q-extractor-header">
-            <h3>Extracted (${profileLinks.length})</h3>
+            <h3>Targeted Profiles (${uniqueLinks.length})</h3>
             <span id="q-extractor-close">✕</span>
         </div>
-        <div id="q-extractor-output">${profileLinks.join("\n")}</div>
+        <div id="q-extractor-output">${uniqueLinks.join("\n")}</div>
         <div id="q-extractor-footer">
             <button id="q-extractor-copy">Copy to Clipboard</button>
         </div>
     `;
     document.body.appendChild(popup);
 
-    // 8. POPUP EVENT LISTENERS
-    // Setup logic for closing the popup and copying the list.
+    /* --- 8. UI EVENT HANDLERS --- */
+    /* Handle closing the popup */
     document.getElementById("q-extractor-close").onclick = () => popup.remove();
-    document.getElementById("q-extractor-copy").onclick = async () => {
-        try {
-            await navigator.clipboard.writeText(profileLinks.join("\n"));
-            const btn = document.getElementById("q-extractor-copy");
-            btn.innerText = "Copied!";
-            setTimeout(() => btn.innerText = "Copy to Clipboard", 2000);
-        } catch (err) {
-            console.error("Failed to copy!", err);
-        }
+
+    /* Handle copying results to clipboard */
+    document.getElementById("q-extractor-copy").onclick = () => {
+        navigator.clipboard.writeText(uniqueLinks.join("\n"));
+        const copyBtn = document.getElementById("q-extractor-copy");
+        copyBtn.innerText = "Copied!";
+        setTimeout(() => {
+            copyBtn.innerText = "Copy to Clipboard";
+        }, 2000);
     };
 })();
