@@ -1,13 +1,14 @@
 name: Deploy Static Site
 
 on:
-  workflow_call:  # <-- This is the "Prereq E1" change
+  workflow_call:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     # Granting necessary permissions for GitHub Pages
     permissions:
+      contents: read
       pages: write
       id-token: write
     steps:
@@ -15,14 +16,13 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup Pages
-        uses: actions/setup-pages@v4
+        uses: actions/configure-pages@v6
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
-          # Double check this folder exists in your repo!
           path: './bookmarklet'
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
