@@ -6,11 +6,6 @@ on:
       - main
 
 jobs:
-  # This calls quora_all.yaml file
-  run-quora-all:
-    uses: ./.github/workflows/quora_all.yml
-
-     # This calls static.yml file
+  # Deploys the bookmarklet install page to GitHub Pages
   run-static-site:
     uses: ./.github/workflows/static.yml
-
