@@ -1,0 +1,7 @@
+name: test-setup-pages-resolve
+on: workflow_dispatch
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-pages@v4
