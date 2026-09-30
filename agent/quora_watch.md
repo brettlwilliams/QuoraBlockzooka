@@ -1,0 +1,106 @@
+# Quora Watch — agent rules
+
+Rules for classifying profiles found while scanning a Quora home feed and notifications. Import this file into an agent with browser access and list-keeping ability; the companion list files hold the verdicts.
+
+## Companion files
+
+- `red_list/profiles.txt` — red-listed profile URLs (blocked), newest first
+- `yellow_list/profiles.txt` — yellow-listed profile URLs (watch), newest first
+- `green_list/profiles.txt` — green-listed profile URLs (known good), newest first
+- `red_list/spaces.txt` — red-listed Space URLs (content-farm fingerprint), newest first
+- `green_list/spaces.txt` — green-listed Space URLs (verified legitimate communities), newest first
+- `source_list/spaces.txt` — source Space URLs (troll-hunting/alert spaces swept for leads), newest first
+
+## Workflow — check the lists BEFORE opening anything
+
+Order of operations for every scan:
+1. Collect candidate profile URLs from the feed, notifications, and Space sweeps. No profile pages are opened yet.
+2. Check every candidate against the Red / Yellow / Green profile lists and a seen-URLs record; check every Space against the Red Spaces and Green Spaces lists (live file and archives). Strip out everything already classified. Green Spaces are never swept. Green profiles are never re-checked.
+3. Open and assess only unclassified profiles.
+4. Space treatment: a Space already on the Red Spaces list is never re-muted and its roster is never re-blocked. Admin roster URLs are checked against the lists first — already-Red admins are skipped (already blocked), Green-listed admins are flagged to the owner instead of blocked (conflicting verdicts), Yellow admins are upgraded to Red, and only unclassified admins are newly added to Red and blocked.
+5. URL identity: never assess or block a profile URL that was guessed from a name search. If a candidate URL could only be resolved via search typeahead, mark it unverified and confirm the profile identity matches the expected person/context before assessing. If it can't be confirmed, skip it.
+6. Pre-existing blocks: if a profile page shows it is already blocked (BLOCKED badge / 'Unblock' in the menu) but it isn't in the records, record the URL and leave the block untouched. A Green-assessing profile with a pre-existing block is never unblocked without the owner's explicit decision — flag the conflict.
+
+## 🔴 Red evaluation procedure (canonical — every profile assessment follows these steps)
+
+Browser tasks cannot read the rules file, so every assessment brief pastes this section inline in full. There is exactly one definition of how a Red is evaluated — this one.
+
+For each unclassified profile, the assessor MUST complete every step before rendering a verdict:
+
+1. **Identity check.** Read the bio, avatar (real photo vs default letter), credentials (employment, education, location), join date, and follower/following counts. Note fabricated or formulaic credentials ("Heritage Researcher at X Research Centre" style), persona cycling (name or credential changes in the log), sockpuppet signals (name-plus-number clones, inconsistent identity), and impersonation of real or famous people.
+2. **Content review.** Read a sample of answers, questions, and posts. Note spam (scam links, phishing, fake giveaways, financial fraud, repetitive promotional content, link farming, commercial solicitation, SEO/affiliate spam — any confirmed instance counts), bot behavior (mass near-identical answers/posts, copy-pasted content at scale, bulk-dumped generated content, inhuman output volume, hundreds of formulaic questions posted minutes apart), AI-slop farming (fabricated farm-template credentials plus any slop = Red regardless of volume; otherwise more than 5 long maudlin/sentimental posts paired with AI-generated images = Red), racist content (slurs, racial targeting, sustained race-bait harassment), sexual abuse material (child sexual abuse material, or questions/content soliciting, describing, or eroticizing child sexual abuse — any instance is Red; violent sexual abuse material targeting adults, e.g. rape/sexual-violence content or sexual threats — Red; legitimate support, prevention, or legal discussion of abuse is NOT Red), and clearly disruptive behavior (harassment, hate speech, threats, doxxing). Do not reproduce explicit material in reports — note the indicator (e.g. "sexual content involving minors") and move on.
+3. **Edit-log review.** Open the profile's edit log. Abusive behavior in the edit history (harassment, hate, threats, vandalism) counts the same as profile content. Note deleted or moderation-reverted content and Quora edit-blocks.
+4. **Spaces check.** Identify which Spaces the profile's posts appear in and cross-reference against the Red Spaces list. A profile whose posts concentrate in Red-listed Spaces is showing a strong Red indicator — it corroborates the content-farm operative verdict. One or two stray posts in a Red-listed Space stays Yellow. Association alone (following a Red profile) is not a Red signal — assess each profile on its own behavior.
+5. **Verdict.** Red requires HIGH CONFIDENCE on one or more of the indicators above. Never Red on political viewpoint alone — partisan commentary backed by real identity signals is clear. When in doubt between Red and Yellow → Yellow. Zero-history provocateur (brand-new profile, no bio, no followers, no answers — nothing but bait questions glorifying violent criminals, sexual predators, or similarly disturbing content) is Red regardless of volume. Troll-hunting space flags corroborate the verdict but are leads, not verdicts. **Quora ban = Red:** if the profile page shows Quora has banned the account ("This account has been banned"), that is a Red verdict by itself — Quora's own moderation has confirmed the account. File as Red; attempt the block, but banned pages usually offer no working Block action, in which case file Red (banned) with no block step — the ban itself already neutralizes the account.
+6. **Owner's follow is an automatic Green.** If the profile page shows the owner follows them ("Following"), it goes straight on the Green list with no assessment. A profile merely following the owner is assessed normally.
+
+## 🔴 Red — block immediately
+
+High confidence only. A profile is Red when it shows one or more of:
+
+- Spam: scam links, phishing, fake giveaways, impersonator accounts promoting scams, financial fraud, repetitive promotional content, link farming, commercial solicitation, SEO/affiliate spam. Any confirmed instance counts — there is no minimum-volume qualifier.
+- Identity fraud: impersonating a real or famous person with fabricated credentials (fake employer, fake education, fake location).
+- Extraction: repetitive off-platform contact solicitation (WhatsApp, Telegram, Zangi, etc.) — the romance/investment scam pattern of moving a victim where Quora can't see.
+- Clearly inauthentic / bot behavior: mass near-identical answers or posts, copy-pasted content at scale, bulk-dumped generated content, inhuman output volume, engagement patterns inconsistent with a real person. This includes bot-cadence question spam: hundreds of formulaic questions posted minutes apart, nearly all unanswered. Reference example: Robert Marsh (https://www.quora.com/profile/Robert-Marsh-271) — 293 formulaic AGI-doom questions at machine cadence, fabricated "Cyber-Philosopher" persona vs "Cashier" credential, fake "Bulletin of Atomic Scientists 09.07.2026" citation. Second reference example: George Smith (https://www.quora.com/profile/George-Smith-4181) — the question-only farm node: 800 questions / 0 answers / 0 posts within weeks of account creation, common Western first+last name + default letter avatar + completely blank profile, follows each of its own questions immediately after posting, near-duplicate How/Why variants posted seconds apart, AI template openers ("Realistically, if...", "Can I realistically..."), hyper-precise decimals, long comma-separated noun lists, raw posts with missing-space tokenization artifacts ("andwildwindhorses") fixed by a self text-edit ~1 minute later, topic mix of false-premise paleontology + ethnicity bait + race/political bait + workplace-absurdity lists. Any future profile matching most of these signals is Red on the pattern.
+- AI-slop farming at scale: more than 5 long, maudlin/sentimental posts paired with AI-generated images. That's bot-like content farming — Red.
+- Content-farm operative: a profile embedded in content-farm Spaces — posting mass-produced trivia/sentimental AI-slop across unrelated topics, with fabricated formulaic credentials ("Heritage Researcher at X Research Centre", "Photographic Archivist at Kyoto Visual Heritage Center") that bear no relation to the claimed identity, at farm volume. Reference example: Ahmed Scott (https://www.quora.com/profile/Ahmed-Scott-2).
+- Sentimental farm-slop: a profile with fabricated farm-template credentials ("X Researcher/Analyst/Designer at Y Research Centre / Heritage Studio / Institute" style) posting sentimental/trivia/AI-slop content is Red regardless of volume — the credential fabrication is identity fraud and the content is inauthentic farm output. No post-count threshold applies; the ">5 long maudlin posts with AI images" rule above still covers non-farm-template cases on its own.
+- Racist content: slurs, racial targeting, or sustained race-bait harassment is Red. This is not viewpoint — partisan commentary backed by real identity signals stays clear; racial abuse does not.
+- Red-Space association: when assessing a new profile, check which Spaces its posts appear in. A profile whose posts concentrate in Red-listed Spaces is showing a strong Red indicator — it corroborates the content-farm operative verdict. One or two stray posts in a red-listed Space stays Yellow; a pattern of posting across red-listed Spaces points Red.
+- Troll account (zero-history provocateur): a brand-new profile with no bio, no followers, no answers — nothing but provocative bait questions — is Red when the bait glorifies violent criminals, sexual predators, or similarly disturbing content. The zero-history pattern plus disturbing bait is the signature; volume doesn't matter because the account exists only to provoke. Troll-hunting space flags corroborate the verdict. Reference example: Jeezy (https://www.quora.com/profile/Jeezy-83) — "serial killer friend" bait questions from a 0-follower, 0-answer throwaway.
+- Content-farm Space: when a Space matches the farm fingerprint (below), it triggers a sub-scan — assess the admin/moderator roster plus the most frequent recent posters (not every poster), then the Space itself goes on the Red Spaces list, is muted, and every operative assessed Red is added to the Red profile list and blocked. Red-listed Spaces are never visited again — no routine re-sweeps.
+- Clearly disruptive: harassment, hate speech, threats, doxxing.
+- Quora ban: a profile showing Quora's "This account has been banned" notice is Red on the ban alone — no further assessment needed. Attempt the block if the page offers a working Block action; banned pages usually don't, in which case the ban itself is the neutralization.
+- Sexual abuse material: child sexual abuse material, or questions/content soliciting, describing, or eroticizing child sexual abuse, is Red on any instance. Violent sexual abuse material targeting adults (rape/sexual-violence content, sexual threats) is Red. Legitimate support, prevention, or legal discussion of abuse is NOT Red — the rule targets predatory/exploitative content. Assessors note the indicator without reproducing explicit material.
+- Never Red on political viewpoint alone. Partisan commentary backed by real identity signals is not Red.
+- When in doubt between Red and Yellow → Yellow.
+
+Check the profile's edit log during every assessment: abusive behavior in the edit history (harassment, hate, threats, vandalism) counts toward Red/Yellow the same as profile content.
+
+- Follower sweep: when a profile is confirmed Red, open its followers list and collect the follower profile URLs before blocking. While collecting, note which follower entries have no Follow button — those profiles are already blocked: skip the block step for them if they assess Red (file as pre-existing block), but still assess them against the Red criteria and still sweep their followers. List-check them first (the seen-URLs record, red/yellow/green lists and archives — already-classified followers are skipped, never re-assessed), then collect-and-assess in merged browser tasks: one task collects the first 20 unclassified followers per Red (as listed on the followers page) and assesses them against the Red criteria in the same run, in batches of ~70 or fewer. File the results, and then block — before extracting the next wave. Never extract more than 100 follower profiles ahead of the block portion: the sweep runs in waves (collect → assess → file → block → next wave), so unblocked Reds never pile up beyond 100. Each newly-confirmed Red from the sweep gets its own follower sweep. Safety cap: never block more than 100 profiles in a single scan session — if the cap is reached, stop blocking and report the remainder to the operator.
+- Report after block: after blocking a Red whose verdict matched the spam criterion or the child-sexual-abuse-material criterion, also report it to Quora. Report flow: open the profile's Report option → choose "Entire Profile" → choose "Spam" for spam verdicts or "Sexual exploitation of minors" for child sexual abuse material → select a minimum of 1 and a maximum of 3 items matching the criteria → wait a full 10 seconds after the selections visibly register (owner's fix: clicking Submit immediately fails with a generic Quora error) → Submit → move on to the next profile. Only profiles blocked during the current scan are reported — never pre-existing blocks, never banned accounts with no block action. If Quora shows a "you've reported too many times" (or similar rate-limit) error, stop all reporting immediately and pause the feature for 12 hours: record the pause in hidden_files/report_pause.json, and block-task briefs check it before attempting any reports (block-only while paused). Log every report outcome in hidden_files/quora_reports.json.
+
+## 🟡 Yellow — watch
+
+Probably disruptive, inauthentic, or spam — suspicious but not conclusive. Indicators:
+
+- Thin identity: default letter avatar, no bio, no location, sparse profile, very new account, few or no followers, following nobody — especially combined with an engagement-bait pattern.
+- Engagement bait: low-effort provocative questions or answers designed to farm outrage (repetitive blockade-style questions, short partisan one-liners at volume), rage-bait with no substantive content.
+- Sockpuppet signals: name-plus-number clones of real users, inconsistent identity signals across profile and content.
+- Viewpoint alone is never Yellow either. A real person with a real profile writing partisan commentary is clear, not Yellow.
+- When uncertain → Yellow.
+- Yellow is bait without proof: thin identity plus engagement-bait patterns, but nothing proving fraud, automation, or abuse. One concrete abusive act — impersonation, scam solicitation, threats — moves it to Red.
+- Repetition is the throttle: bait posted with constant, high-volume repetition leans Red (bot-like behavior); without that sustained volume it stays Yellow. Exception: a zero-history troll account posting disturbing bait (glorifying violent criminals, sexual predators, etc.) is Red regardless of volume — see the Red rules.
+- Content-farm Space activity: a profile posting in a farm-fingerprint Space (below) is suspicious. One or two stray posts with no farm-template credentials stays Yellow; fabricated farm-template credentials plus any farm slop is Red regardless of volume (sentimental farm-slop rule).
+
+Content-farm Space fingerprint — the style of Space that triggers a sub-scan. A Space matches when it shows most of these: stated topic doesn't match the actual content (trivia, sentimental stories, celebrity gossip instead of the claimed subject); ~8–10+ posts per day; posts credited to formulaic fake personas with implausible "heritage researcher / research centre" credentials; inflated upvote counts on thin content; engagement bait mixed in.
+
+How it works: scans do not keep a standing sweep list. When a scan encounters an unclassified Space — via feed items, notification digests, or a profile whose posts concentrate there — it checks the Space against this fingerprint. On a match, run the sub-scan: assess the admin/moderator roster plus the most frequent recent posters (bounded, ~10), classify each by the Red/Yellow/Green rules above, then red-list the Space, mute it, and block the Red operatives. A Red-listed Space is excluded from all future visits — it is never swept again. Spaces already Red-listed are grandfathered as excluded.
+
+## 🟢 Green — known good
+
+Completely human, no further checks needed. A profile is Green when it shows all of:
+
+- Real photo avatar, not a default letter.
+- Filled-out identity: bio, location, and/or credentials (education, employment).
+- Established history: joined a while ago, meaningful answer/question/post counts, a real follower base.
+- Genuinely human content: original substantive answers, personal voice, varied topics, identity consistent across profile and content.
+- No spam, bot, sockpuppet, or engagement-bait signals.
+
+The account owner's follow is an automatic Green: if the owner follows the profile on Quora (profile page shows "Following"), it goes straight on the Green list with no assessment. The reverse carries no weight — a profile that follows the owner is assessed normally and can land on Red, Yellow, or Green.
+
+Green profiles are recorded in the Green list and never loaded or checked again.
+
+## 🟢 Green Spaces — never swept
+
+A Space checked against the farm fingerprint and found to be a legitimate community goes on the Green Spaces list. Green Spaces are never visited or swept again, the same way Green profiles are never re-checked.
+
+## 🔍 Source Spaces — swept for leads
+
+Spaces whose posts flag or link to suspicious profiles (troll-hunting / alert spaces). Every scan sweeps each Source Space: collect the profile URLs of recent posters AND any profile URLs linked or flagged inside their posts, and add them to the candidate pool for Red/Yellow evaluation. A lead from a source space is assessed individually — an alert is a lead, not a verdict.
+
+## Field notes
+
+- The home feed is usually clean (mostly genuine authors). Reds surface through notifications, especially troll-alert spaces. Weight notification actors accordingly — the feed scan mostly confirms greens.
+- Account age: very new (joined within weeks) plus bait/troll behavior is a strong red/yellow signal; number-suffixed throwaway usernames add to it. But an aged account is not a pass — behavior decides.
+- Troll-hunting spaces over-flag. A space alert is a lead, not a verdict — always assess individually. Viewpoint-only profiles caught in alerts are clear.
