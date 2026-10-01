@@ -13,7 +13,7 @@
  "stale_scan_hours": 6,
  "report_after_block": true,
  "report_pause_hours": 12,
- "assessment_only_mode": true,
+ "assessment_only_mode": false,
  "scroll_jitter_secs": [
   1,
   5
