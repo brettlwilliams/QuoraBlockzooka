@@ -7,13 +7,13 @@
  "max_followers_per_red": 20,
  "max_onevisit_batch": 20,
  "max_sweep_waves": 5,
- "note": "Tunable numbers for the Quora feed scan. Edit these values to change scan behavior \u2014 the scan job reads this file fresh on every run, so changes apply to the next run with nothing to restart. Do NOT edit the cron .md file directly: it is a read-only copy and changes there have no effect. block_cap_suspended=true: cap suspended again 2026-09-30 for the followers-evaluation round (per Brett) \u2014 re-enable when it completes. assessment_only_mode=true: profile evaluation classifies Red/Yellow/Green and files in lists, with no follower collection or sweeps. scroll_jitter_secs=[1,5]: random 1-5s pause after every scroll wait (added 2026-10-01 per Brett).",
+ "note": "Tunable numbers for the Quora feed scan. Edit these values to change scan behavior \u2014 the scan job reads this file fresh on every run, so changes apply to the next run with nothing to restart. Do NOT edit the cron .md file directly: it is a read-only copy and changes there have no effect. block_cap_suspended=true: cap suspended again 2026-09-30 for the followers-evaluation round (per Brett) \u2014 re-enable when it completes. assessment_only_mode=false (2026-10-01 per Brett): full mode \u2014 assess, follower-sweep Reds, block, and report spam/CSAM Reds after blocking. scroll_jitter_secs=[1,5]: random 1-5s pause after every scroll wait (added 2026-10-01 per Brett).",
  "signin_pending_hours": 2,
  "signin_recheck_wait_secs": 60,
  "stale_scan_hours": 6,
  "report_after_block": true,
  "report_pause_hours": 12,
- "assessment_only_mode": true,
+ "assessment_only_mode": false,
  "scroll_jitter_secs": [
   1,
   5
