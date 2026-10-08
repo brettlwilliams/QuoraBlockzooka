@@ -1,23 +1,23 @@
 {
- "cloudflare_wait_secs": 30,
- "max_assess_batch": 70,
- "max_blocks_per_scan": 200,
- "block_cap_suspended": false,
- "max_extraction_ahead": 200,
- "max_followers_per_red": 20,
- "max_onevisit_batch": 20,
- "max_sweep_waves": 5,
- "note": "Tunable numbers for the Quora feed scan. Edit these values to change scan behavior \u2014 the scan job reads this file fresh on every run, so changes apply to the next run with nothing to restart. Do NOT edit the cron .md file directly: it is a read-only copy and changes there have no effect. block_cap_suspended=true: cap suspended again 2026-09-30 for the followers-evaluation round (per Brett) \u2014 re-enable when it completes. assessment_only_mode=false (standing rule 2026-10-02 per Brett): full mode is the default \u2014 assess, follower-sweep Reds, block, and report spam/CSAM Reds after blocking; assessment-only only when Brett says so. scroll_jitter_secs=[1,5]: random 1-5s pause after every scroll wait (added 2026-10-01 per Brett). block_cap_suspended=true: cap LIFTED 2026-10-05 21:06 EDT per Brett ('At 100, block only for anything remaining') \u2014 continue assessing and blocking past 100 for the remainder of the queue. post-100 mode (2026-10-05 21:07 EDT per Brett): after 100 blocks, assess backlog and block Reds with NO follower collection and NO new waves. Two-tier cap (2026-10-05 21:26 EDT per Brett): 100 blocks WITH follower sweeps, then 100 blocks assess-and-block with NO follower sweeps and NO new waves; after 200 total blocks, DELETE any remaining queued profiles and close the scan.",
- "signin_pending_hours": 2,
- "signin_recheck_wait_secs": 60,
- "stale_scan_hours": 6,
- "report_after_block": true,
- "report_pause_hours": 12,
- "assessment_only_mode": false,
- "scroll_jitter_secs": [
-  1,
-  5
- ],
- "group1_sweep_cap": 100,
- "group2_nosweep_cap": 100
+  "cloudflare_wait_secs": 30,
+  "max_assess_batch": 70,
+  "max_blocks_per_scan": 200,
+  "block_cap_suspended": false,
+  "max_extraction_ahead": 200,
+  "max_followers_per_red": 20,
+  "max_onevisit_batch": 20,
+  "max_sweep_waves": 5,
+  "note": "Tunable numbers for the Quora feed scan. Edit these values to change scan behavior \u2014 the scan job reads this file fresh on every run, so changes apply to the next run with nothing to restart. Do NOT edit the cron .md file directly: it is a read-only copy and changes there have no effect. block_cap_suspended=true: cap suspended again 2026-09-30 for the followers-evaluation round (per Brett) \u2014 re-enable when it completes. assessment_only_mode=false (standing rule 2026-10-02 per Brett): full mode is the default \u2014 assess, follower-sweep Reds, block, and report spam/CSAM Reds after blocking; assessment-only only when Brett says so. scroll_jitter_secs=[1,5]: random 1-5s pause after every scroll wait (added 2026-10-01 per Brett). block_cap_suspended=true: cap LIFTED 2026-10-05 21:06 EDT per Brett ('At 100, block only for anything remaining') \u2014 continue assessing and blocking past 100 for the remainder of the queue. post-100 mode (2026-10-05 21:07 EDT per Brett): after 100 blocks, assess backlog and block Reds with NO follower collection and NO new waves. Two-tier cap (2026-10-05 21:26 EDT per Brett): 100 blocks WITH follower sweeps, then 100 blocks assess-and-block with NO follower sweeps and NO new waves; after 200 total blocks, DELETE any remaining queued profiles and close the scan.",
+  "signin_pending_hours": 2,
+  "signin_recheck_wait_secs": 60,
+  "stale_scan_hours": 6,
+  "report_after_block": true,
+  "report_pause_hours": 12,
+  "assessment_only_mode": false,
+  "scroll_jitter_secs": [
+    1,
+    5
+  ],
+  "group1_sweep_cap": 100,
+  "group2_nosweep_cap": 100
 }
