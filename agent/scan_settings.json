@@ -1,23 +1,23 @@
 {
-  "cloudflare_wait_secs": 30,
-  "max_assess_batch": 70,
-  "max_blocks_per_scan": 50,
-  "block_cap_suspended": false,
-  "max_extraction_ahead": 50,
-  "max_followers_per_red": 20,
-  "max_onevisit_batch": 20,
-  "max_sweep_waves": 5,
-  "note": "Tunable numbers for the Quora feed scan. Edit these values to change scan behavior — the scan job reads this file fresh on every run, so changes apply to the next run with nothing to restart. Do NOT edit the cron .md file directly: it is a read-only copy and changes there have no effect. Block cap: max_blocks_per_scan=50, two-tier — 25 blocks WITH follower sweeps (group1_sweep_cap), then 25 assess-and-block with NO follower sweeps and NO new waves (group2_nosweep_cap); after 50 total blocks the scan purges any remaining queued profiles and closes. block_cap_suspended=false means the cap is in force; set true to suspend it. assessment_only_mode=false: full mode is the default — assess, follower-sweep Reds, block, and report spam/CSAM Reds after blocking; assessment-only only on explicit instruction.",
-  "signin_pending_hours": 2,
-  "signin_recheck_wait_secs": 60,
-  "stale_scan_hours": 6,
-  "report_after_block": true,
-  "report_pause_hours": 12,
-  "assessment_only_mode": false,
-  "scroll_jitter_secs": [
-    1,
-    5
-  ],
-  "group1_sweep_cap": 25,
-  "group2_nosweep_cap": 25
+ "cloudflare_wait_secs": 30,
+ "max_assess_batch": 70,
+ "max_blocks_per_scan": 50,
+ "block_cap_suspended": false,
+ "max_extraction_ahead": 50,
+ "max_followers_per_red": 20,
+ "max_onevisit_batch": 20,
+ "max_sweep_waves": 5,
+ "note": "Tunable numbers for the Quora feed scan. Edit these values to change scan behavior — the scan job reads this file fresh on every run, so changes apply to the next run with nothing to restart. Do NOT edit the cron .md file directly: it is a read-only copy and changes there have no effect. Block cap: max_blocks_per_scan=50, two-tier — 25 blocks WITH follower sweeps (group1_sweep_cap), then 25 assess-and-block with NO follower sweeps and NO new waves (group2_nosweep_cap); after 50 total blocks the scan purges any remaining queued profiles and closes. block_cap_suspended=false means the cap is in force; set true to suspend it. assessment_only_mode=false: full mode is the default — assess, follower-sweep Reds, block, and report spam/CSAM Reds after blocking; assessment-only only on explicit instruction.",
+ "signin_pending_hours": 2,
+ "signin_recheck_wait_secs": 60,
+ "stale_scan_hours": 6,
+ "report_after_block": true,
+ "report_pause_hours": 12,
+ "assessment_only_mode": false,
+ "scroll_jitter_secs": [
+  1,
+  5
+ ],
+ "group1_sweep_cap": 25,
+ "group2_nosweep_cap": 25
 }
