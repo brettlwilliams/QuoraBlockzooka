@@ -25,7 +25,7 @@ this repo. Read these three files into the agent's context, in this order:
 - `red_list/spaces.txt` — red-listed Space URLs (content farms), newest first.
 - `green_list/spaces.txt` — green-listed Space URLs (verified legitimate), newest first.
 - `source_list/spaces.txt` — source Space URLs (troll-hunting/alert spaces, swept for leads).
-- The bookmarklet install page (https://brettlwilliams.github.io/QuoraBlockzooka/bookmarklet/bookmarklet.html) — the six browser tools below.
+- The bookmarklet install page (https://brettlwilliams.github.io/QuoraBlockzooka/bookmarklet.html) — the six browser tools below.
 
 ## The tools
 
