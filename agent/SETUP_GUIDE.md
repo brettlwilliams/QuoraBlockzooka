@@ -88,7 +88,7 @@ as a standalone `.js` file under `blockzooka/` in the source repo.
 - **Never run two browser automation sessions against Quora concurrently** —
   they share one browser profile and corrupt each other's session state.
 
-## Defined guy types (10)
+## Defined guy types (11)
 
 Each is a standing Red trigger — a profile matching most of a type's traits
 is an immediate Red. Full definitions with all signals: `agent/quora_guys.md`.
@@ -103,6 +103,7 @@ is an immediate Red. Full definitions with all signals: `agent/quora_guys.md`.
 - **Memes** (follow-bait meme-farmer guy type): a sockpuppet-troll profile matching most of these: (1) thin, slapped-together identity — generic first+last display name, non-human avatar (pet photo), near-empty bio…
 - **Gender-bait** (manosphere provocation-bait guy type): a sockpuppet-troll profile matching most of these: (1) thin, slapped-together identity — nonsense or pseudonymous handle, default avatar, no credentials, no education/location…
 - **Slogan-bait** (partisan-slogan bait guy type): a sockpuppet-troll profile matching most of these: (1) the display name IS an ideological slogan or tribal brand rather than a person's name…
+- **Strong Prisoner** (prison-restraint hypothetical guy type): a sockpuppet-troll profile matching most of these: (1) thin, pseudonymous identity — default letter/silhouette avatar, no bio, no employment/education/location credentials, brand-new account…
 
 ## Rules-file map (`agent/quora_watch.md`)
 
