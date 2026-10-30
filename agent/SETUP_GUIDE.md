@@ -111,6 +111,8 @@ is an immediate Red. Full definitions with all signals: `agent/quora_guys.md`.
 - Workflow — check the lists BEFORE opening anything
 - 🔴 Red evaluation procedure (canonical — every profile assessment follows these steps)
 - 🔴 Red — block immediately
+- Reference examples
+- 🟡 Yellow — compact (for briefs)
 - 🟡 Yellow — watch
 - 🟢 Green — known good
 - 🟢 Green Spaces — never swept
